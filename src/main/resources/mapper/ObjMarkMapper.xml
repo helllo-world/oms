@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.oms.dao.ObjMarkMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.oms.entity.ObjMark" >
+    <id column="obj_mark_id" property="objMarkId" jdbcType="INTEGER" />
+    <result column="paper_sacn_id" property="paperSacnId" jdbcType="INTEGER" />
+    <result column="score_get" property="scoreGet" jdbcType="SMALLINT" />
+    <result column="score" property="score" jdbcType="SMALLINT" />
+    <result column="point_id" property="pointId" jdbcType="INTEGER" />
+    <result column="goal_id" property="goalId" jdbcType="INTEGER" />
+    <result column="mark_time" property="markTime" jdbcType="TIMESTAMP" />
+    <result column="is_right" property="isRight" jdbcType="TINYINT" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    obj_mark_id, paper_sacn_id, score_get, score, point_id, goal_id, mark_time, is_right, 
+    reserve1, reserve2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.oms.entity.ObjMarkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from obj_mark
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from obj_mark
+    where obj_mark_id = #{objMarkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from obj_mark
+    where obj_mark_id = #{objMarkId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.oms.entity.ObjMarkExample" >
+    delete from obj_mark
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.oms.entity.ObjMark" >
+    insert into obj_mark (obj_mark_id, paper_sacn_id, score_get, 
+      score, point_id, goal_id, 
+      mark_time, is_right, reserve1, 
+      reserve2)
+    values (#{objMarkId,jdbcType=INTEGER}, #{paperSacnId,jdbcType=INTEGER}, #{scoreGet,jdbcType=SMALLINT}, 
+      #{score,jdbcType=SMALLINT}, #{pointId,jdbcType=INTEGER}, #{goalId,jdbcType=INTEGER}, 
+      #{markTime,jdbcType=TIMESTAMP}, #{isRight,jdbcType=TINYINT}, #{reserve1,jdbcType=VARCHAR}, 
+      #{reserve2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.oms.entity.ObjMark" >
+    insert into obj_mark
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="objMarkId != null" >
+        obj_mark_id,
+      </if>
+      <if test="paperSacnId != null" >
+        paper_sacn_id,
+      </if>
+      <if test="scoreGet != null" >
+        score_get,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="pointId != null" >
+        point_id,
+      </if>
+      <if test="goalId != null" >
+        goal_id,
+      </if>
+      <if test="markTime != null" >
+        mark_time,
+      </if>
+      <if test="isRight != null" >
+        is_right,
+      </if>
+      <if test="reserve1 != null" >
+        reserve1,
+      </if>
+      <if test="reserve2 != null" >
+        reserve2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="objMarkId != null" >
+        #{objMarkId,jdbcType=INTEGER},
+      </if>
+      <if test="paperSacnId != null" >
+        #{paperSacnId,jdbcType=INTEGER},
+      </if>
+      <if test="scoreGet != null" >
+        #{scoreGet,jdbcType=SMALLINT},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=SMALLINT},
+      </if>
+      <if test="pointId != null" >
+        #{pointId,jdbcType=INTEGER},
+      </if>
+      <if test="goalId != null" >
+        #{goalId,jdbcType=INTEGER},
+      </if>
+      <if test="markTime != null" >
+        #{markTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRight != null" >
+        #{isRight,jdbcType=TINYINT},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.oms.entity.ObjMarkExample" resultType="java.lang.Integer" >
+    select count(*) from obj_mark
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update obj_mark
+    <set >
+      <if test="record.objMarkId != null" >
+        obj_mark_id = #{record.objMarkId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperSacnId != null" >
+        paper_sacn_id = #{record.paperSacnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scoreGet != null" >
+        score_get = #{record.scoreGet,jdbcType=SMALLINT},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=SMALLINT},
+      </if>
+      <if test="record.pointId != null" >
+        point_id = #{record.pointId,jdbcType=INTEGER},
+      </if>
+      <if test="record.goalId != null" >
+        goal_id = #{record.goalId,jdbcType=INTEGER},
+      </if>
+      <if test="record.markTime != null" >
+        mark_time = #{record.markTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isRight != null" >
+        is_right = #{record.isRight,jdbcType=TINYINT},
+      </if>
+      <if test="record.reserve1 != null" >
+        reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve2 != null" >
+        reserve2 = #{record.reserve2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update obj_mark
+    set obj_mark_id = #{record.objMarkId,jdbcType=INTEGER},
+      paper_sacn_id = #{record.paperSacnId,jdbcType=INTEGER},
+      score_get = #{record.scoreGet,jdbcType=SMALLINT},
+      score = #{record.score,jdbcType=SMALLINT},
+      point_id = #{record.pointId,jdbcType=INTEGER},
+      goal_id = #{record.goalId,jdbcType=INTEGER},
+      mark_time = #{record.markTime,jdbcType=TIMESTAMP},
+      is_right = #{record.isRight,jdbcType=TINYINT},
+      reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      reserve2 = #{record.reserve2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.oms.entity.ObjMark" >
+    update obj_mark
+    <set >
+      <if test="paperSacnId != null" >
+        paper_sacn_id = #{paperSacnId,jdbcType=INTEGER},
+      </if>
+      <if test="scoreGet != null" >
+        score_get = #{scoreGet,jdbcType=SMALLINT},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=SMALLINT},
+      </if>
+      <if test="pointId != null" >
+        point_id = #{pointId,jdbcType=INTEGER},
+      </if>
+      <if test="goalId != null" >
+        goal_id = #{goalId,jdbcType=INTEGER},
+      </if>
+      <if test="markTime != null" >
+        mark_time = #{markTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRight != null" >
+        is_right = #{isRight,jdbcType=TINYINT},
+      </if>
+      <if test="reserve1 != null" >
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where obj_mark_id = #{objMarkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.oms.entity.ObjMark" >
+    update obj_mark
+    set paper_sacn_id = #{paperSacnId,jdbcType=INTEGER},
+      score_get = #{scoreGet,jdbcType=SMALLINT},
+      score = #{score,jdbcType=SMALLINT},
+      point_id = #{pointId,jdbcType=INTEGER},
+      goal_id = #{goalId,jdbcType=INTEGER},
+      mark_time = #{markTime,jdbcType=TIMESTAMP},
+      is_right = #{isRight,jdbcType=TINYINT},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR}
+    where obj_mark_id = #{objMarkId,jdbcType=INTEGER}
+  </update>
+</mapper>

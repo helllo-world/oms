@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.oms.dao.AnswerMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.oms.entity.Answer" >
+    <id column="answer_id" property="answerId" jdbcType="INTEGER" />
+    <result column="answersheet_id" property="answersheetId" jdbcType="INTEGER" />
+    <result column="administrator_id" property="administratorId" jdbcType="INTEGER" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    <result column="answer_name" property="answerName" jdbcType="VARCHAR" />
+    <result column="establish_time" property="establishTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="exam_time" property="examTime" jdbcType="SMALLINT" />
+    <result column="obj_num" property="objNum" jdbcType="SMALLINT" />
+    <result column="subj_num" property="subjNum" jdbcType="SMALLINT" />
+    <result column="is_assign" property="isAssign" jdbcType="TINYINT" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    answer_id, answersheet_id, administrator_id, subject_id, answer_name, establish_time, 
+    start_time, exam_time, obj_num, subj_num, is_assign, reserve1, reserve2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.oms.entity.AnswerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from answer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from answer
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from answer
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.oms.entity.AnswerExample" >
+    delete from answer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.oms.entity.Answer" >
+    insert into answer (answer_id, answersheet_id, administrator_id, 
+      subject_id, answer_name, establish_time, 
+      start_time, exam_time, obj_num, 
+      subj_num, is_assign, reserve1, 
+      reserve2)
+    values (#{answerId,jdbcType=INTEGER}, #{answersheetId,jdbcType=INTEGER}, #{administratorId,jdbcType=INTEGER}, 
+      #{subjectId,jdbcType=INTEGER}, #{answerName,jdbcType=VARCHAR}, #{establishTime,jdbcType=TIMESTAMP}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{examTime,jdbcType=SMALLINT}, #{objNum,jdbcType=SMALLINT}, 
+      #{subjNum,jdbcType=SMALLINT}, #{isAssign,jdbcType=TINYINT}, #{reserve1,jdbcType=VARCHAR}, 
+      #{reserve2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.oms.entity.Answer" >
+    insert into answer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="answerId != null" >
+        answer_id,
+      </if>
+      <if test="answersheetId != null" >
+        answersheet_id,
+      </if>
+      <if test="administratorId != null" >
+        administrator_id,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="answerName != null" >
+        answer_name,
+      </if>
+      <if test="establishTime != null" >
+        establish_time,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="examTime != null" >
+        exam_time,
+      </if>
+      <if test="objNum != null" >
+        obj_num,
+      </if>
+      <if test="subjNum != null" >
+        subj_num,
+      </if>
+      <if test="isAssign != null" >
+        is_assign,
+      </if>
+      <if test="reserve1 != null" >
+        reserve1,
+      </if>
+      <if test="reserve2 != null" >
+        reserve2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="answerId != null" >
+        #{answerId,jdbcType=INTEGER},
+      </if>
+      <if test="answersheetId != null" >
+        #{answersheetId,jdbcType=INTEGER},
+      </if>
+      <if test="administratorId != null" >
+        #{administratorId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="answerName != null" >
+        #{answerName,jdbcType=VARCHAR},
+      </if>
+      <if test="establishTime != null" >
+        #{establishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examTime != null" >
+        #{examTime,jdbcType=SMALLINT},
+      </if>
+      <if test="objNum != null" >
+        #{objNum,jdbcType=SMALLINT},
+      </if>
+      <if test="subjNum != null" >
+        #{subjNum,jdbcType=SMALLINT},
+      </if>
+      <if test="isAssign != null" >
+        #{isAssign,jdbcType=TINYINT},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.oms.entity.AnswerExample" resultType="java.lang.Integer" >
+    select count(*) from answer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update answer
+    <set >
+      <if test="record.answerId != null" >
+        answer_id = #{record.answerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.answersheetId != null" >
+        answersheet_id = #{record.answersheetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.administratorId != null" >
+        administrator_id = #{record.administratorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectId != null" >
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.answerName != null" >
+        answer_name = #{record.answerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.establishTime != null" >
+        establish_time = #{record.establishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.examTime != null" >
+        exam_time = #{record.examTime,jdbcType=SMALLINT},
+      </if>
+      <if test="record.objNum != null" >
+        obj_num = #{record.objNum,jdbcType=SMALLINT},
+      </if>
+      <if test="record.subjNum != null" >
+        subj_num = #{record.subjNum,jdbcType=SMALLINT},
+      </if>
+      <if test="record.isAssign != null" >
+        is_assign = #{record.isAssign,jdbcType=TINYINT},
+      </if>
+      <if test="record.reserve1 != null" >
+        reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve2 != null" >
+        reserve2 = #{record.reserve2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update answer
+    set answer_id = #{record.answerId,jdbcType=INTEGER},
+      answersheet_id = #{record.answersheetId,jdbcType=INTEGER},
+      administrator_id = #{record.administratorId,jdbcType=INTEGER},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      answer_name = #{record.answerName,jdbcType=VARCHAR},
+      establish_time = #{record.establishTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      exam_time = #{record.examTime,jdbcType=SMALLINT},
+      obj_num = #{record.objNum,jdbcType=SMALLINT},
+      subj_num = #{record.subjNum,jdbcType=SMALLINT},
+      is_assign = #{record.isAssign,jdbcType=TINYINT},
+      reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      reserve2 = #{record.reserve2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.oms.entity.Answer" >
+    update answer
+    <set >
+      <if test="answersheetId != null" >
+        answersheet_id = #{answersheetId,jdbcType=INTEGER},
+      </if>
+      <if test="administratorId != null" >
+        administrator_id = #{administratorId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="answerName != null" >
+        answer_name = #{answerName,jdbcType=VARCHAR},
+      </if>
+      <if test="establishTime != null" >
+        establish_time = #{establishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="examTime != null" >
+        exam_time = #{examTime,jdbcType=SMALLINT},
+      </if>
+      <if test="objNum != null" >
+        obj_num = #{objNum,jdbcType=SMALLINT},
+      </if>
+      <if test="subjNum != null" >
+        subj_num = #{subjNum,jdbcType=SMALLINT},
+      </if>
+      <if test="isAssign != null" >
+        is_assign = #{isAssign,jdbcType=TINYINT},
+      </if>
+      <if test="reserve1 != null" >
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.oms.entity.Answer" >
+    update answer
+    set answersheet_id = #{answersheetId,jdbcType=INTEGER},
+      administrator_id = #{administratorId,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      answer_name = #{answerName,jdbcType=VARCHAR},
+      establish_time = #{establishTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      exam_time = #{examTime,jdbcType=SMALLINT},
+      obj_num = #{objNum,jdbcType=SMALLINT},
+      subj_num = #{subjNum,jdbcType=SMALLINT},
+      is_assign = #{isAssign,jdbcType=TINYINT},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR}
+    where answer_id = #{answerId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.neuedu.oms.dao.PaperScanMapper" >
+  <resultMap id="BaseResultMap" type="com.neuedu.oms.entity.PaperScan" >
+    <id column="paper_scan_id" property="paperScanId" jdbcType="INTEGER" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="answer_id" property="answerId" jdbcType="INTEGER" />
+    <result column="paper_name" property="paperName" jdbcType="VARCHAR" />
+    <result column="student_exam_num" property="studentExamNum" jdbcType="INTEGER" />
+    <result column="bar_code" property="barCode" jdbcType="VARCHAR" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+    <result column="address_prefix" property="addressPrefix" jdbcType="VARCHAR" />
+    <result column="is_assign" property="isAssign" jdbcType="TINYINT" />
+    <result column="is_mark" property="isMark" jdbcType="TINYINT" />
+    <result column="obj_get" property="objGet" jdbcType="INTEGER" />
+    <result column="obj_all" property="objAll" jdbcType="INTEGER" />
+    <result column="subj_get" property="subjGet" jdbcType="INTEGER" />
+    <result column="subj_all" property="subjAll" jdbcType="INTEGER" />
+    <result column="score_get" property="scoreGet" jdbcType="INTEGER" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="reserve1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="reserve2" property="reserve2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    paper_scan_id, student_id, answer_id, paper_name, student_exam_num, bar_code, subject_id, 
+    submit_time, address_prefix, is_assign, is_mark, obj_get, obj_all, subj_get, subj_all, 
+    score_get, score, reserve1, reserve2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.neuedu.oms.entity.PaperScanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from paper_scan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from paper_scan
+    where paper_scan_id = #{paperScanId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from paper_scan
+    where paper_scan_id = #{paperScanId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.oms.entity.PaperScanExample" >
+    delete from paper_scan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.neuedu.oms.entity.PaperScan" >
+    insert into paper_scan (paper_scan_id, student_id, answer_id, 
+      paper_name, student_exam_num, bar_code, 
+      subject_id, submit_time, address_prefix, 
+      is_assign, is_mark, obj_get, 
+      obj_all, subj_get, subj_all, 
+      score_get, score, reserve1, 
+      reserve2)
+    values (#{paperScanId,jdbcType=INTEGER}, #{studentId,jdbcType=INTEGER}, #{answerId,jdbcType=INTEGER}, 
+      #{paperName,jdbcType=VARCHAR}, #{studentExamNum,jdbcType=INTEGER}, #{barCode,jdbcType=VARCHAR}, 
+      #{subjectId,jdbcType=INTEGER}, #{submitTime,jdbcType=TIMESTAMP}, #{addressPrefix,jdbcType=VARCHAR}, 
+      #{isAssign,jdbcType=TINYINT}, #{isMark,jdbcType=TINYINT}, #{objGet,jdbcType=INTEGER}, 
+      #{objAll,jdbcType=INTEGER}, #{subjGet,jdbcType=INTEGER}, #{subjAll,jdbcType=INTEGER}, 
+      #{scoreGet,jdbcType=INTEGER}, #{score,jdbcType=INTEGER}, #{reserve1,jdbcType=VARCHAR}, 
+      #{reserve2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.neuedu.oms.entity.PaperScan" >
+    insert into paper_scan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paperScanId != null" >
+        paper_scan_id,
+      </if>
+      <if test="studentId != null" >
+        student_id,
+      </if>
+      <if test="answerId != null" >
+        answer_id,
+      </if>
+      <if test="paperName != null" >
+        paper_name,
+      </if>
+      <if test="studentExamNum != null" >
+        student_exam_num,
+      </if>
+      <if test="barCode != null" >
+        bar_code,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="submitTime != null" >
+        submit_time,
+      </if>
+      <if test="addressPrefix != null" >
+        address_prefix,
+      </if>
+      <if test="isAssign != null" >
+        is_assign,
+      </if>
+      <if test="isMark != null" >
+        is_mark,
+      </if>
+      <if test="objGet != null" >
+        obj_get,
+      </if>
+      <if test="objAll != null" >
+        obj_all,
+      </if>
+      <if test="subjGet != null" >
+        subj_get,
+      </if>
+      <if test="subjAll != null" >
+        subj_all,
+      </if>
+      <if test="scoreGet != null" >
+        score_get,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="reserve1 != null" >
+        reserve1,
+      </if>
+      <if test="reserve2 != null" >
+        reserve2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paperScanId != null" >
+        #{paperScanId,jdbcType=INTEGER},
+      </if>
+      <if test="studentId != null" >
+        #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="answerId != null" >
+        #{answerId,jdbcType=INTEGER},
+      </if>
+      <if test="paperName != null" >
+        #{paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentExamNum != null" >
+        #{studentExamNum,jdbcType=INTEGER},
+      </if>
+      <if test="barCode != null" >
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="submitTime != null" >
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressPrefix != null" >
+        #{addressPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="isAssign != null" >
+        #{isAssign,jdbcType=TINYINT},
+      </if>
+      <if test="isMark != null" >
+        #{isMark,jdbcType=TINYINT},
+      </if>
+      <if test="objGet != null" >
+        #{objGet,jdbcType=INTEGER},
+      </if>
+      <if test="objAll != null" >
+        #{objAll,jdbcType=INTEGER},
+      </if>
+      <if test="subjGet != null" >
+        #{subjGet,jdbcType=INTEGER},
+      </if>
+      <if test="subjAll != null" >
+        #{subjAll,jdbcType=INTEGER},
+      </if>
+      <if test="scoreGet != null" >
+        #{scoreGet,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.oms.entity.PaperScanExample" resultType="java.lang.Integer" >
+    select count(*) from paper_scan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update paper_scan
+    <set >
+      <if test="record.paperScanId != null" >
+        paper_scan_id = #{record.paperScanId,jdbcType=INTEGER},
+      </if>
+      <if test="record.studentId != null" >
+        student_id = #{record.studentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.answerId != null" >
+        answer_id = #{record.answerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paperName != null" >
+        paper_name = #{record.paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.studentExamNum != null" >
+        student_exam_num = #{record.studentExamNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.barCode != null" >
+        bar_code = #{record.barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subjectId != null" >
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.submitTime != null" >
+        submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.addressPrefix != null" >
+        address_prefix = #{record.addressPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAssign != null" >
+        is_assign = #{record.isAssign,jdbcType=TINYINT},
+      </if>
+      <if test="record.isMark != null" >
+        is_mark = #{record.isMark,jdbcType=TINYINT},
+      </if>
+      <if test="record.objGet != null" >
+        obj_get = #{record.objGet,jdbcType=INTEGER},
+      </if>
+      <if test="record.objAll != null" >
+        obj_all = #{record.objAll,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjGet != null" >
+        subj_get = #{record.subjGet,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjAll != null" >
+        subj_all = #{record.subjAll,jdbcType=INTEGER},
+      </if>
+      <if test="record.scoreGet != null" >
+        score_get = #{record.scoreGet,jdbcType=INTEGER},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.reserve1 != null" >
+        reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve2 != null" >
+        reserve2 = #{record.reserve2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update paper_scan
+    set paper_scan_id = #{record.paperScanId,jdbcType=INTEGER},
+      student_id = #{record.studentId,jdbcType=INTEGER},
+      answer_id = #{record.answerId,jdbcType=INTEGER},
+      paper_name = #{record.paperName,jdbcType=VARCHAR},
+      student_exam_num = #{record.studentExamNum,jdbcType=INTEGER},
+      bar_code = #{record.barCode,jdbcType=VARCHAR},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      submit_time = #{record.submitTime,jdbcType=TIMESTAMP},
+      address_prefix = #{record.addressPrefix,jdbcType=VARCHAR},
+      is_assign = #{record.isAssign,jdbcType=TINYINT},
+      is_mark = #{record.isMark,jdbcType=TINYINT},
+      obj_get = #{record.objGet,jdbcType=INTEGER},
+      obj_all = #{record.objAll,jdbcType=INTEGER},
+      subj_get = #{record.subjGet,jdbcType=INTEGER},
+      subj_all = #{record.subjAll,jdbcType=INTEGER},
+      score_get = #{record.scoreGet,jdbcType=INTEGER},
+      score = #{record.score,jdbcType=INTEGER},
+      reserve1 = #{record.reserve1,jdbcType=VARCHAR},
+      reserve2 = #{record.reserve2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.oms.entity.PaperScan" >
+    update paper_scan
+    <set >
+      <if test="studentId != null" >
+        student_id = #{studentId,jdbcType=INTEGER},
+      </if>
+      <if test="answerId != null" >
+        answer_id = #{answerId,jdbcType=INTEGER},
+      </if>
+      <if test="paperName != null" >
+        paper_name = #{paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="studentExamNum != null" >
+        student_exam_num = #{studentExamNum,jdbcType=INTEGER},
+      </if>
+      <if test="barCode != null" >
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="submitTime != null" >
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addressPrefix != null" >
+        address_prefix = #{addressPrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="isAssign != null" >
+        is_assign = #{isAssign,jdbcType=TINYINT},
+      </if>
+      <if test="isMark != null" >
+        is_mark = #{isMark,jdbcType=TINYINT},
+      </if>
+      <if test="objGet != null" >
+        obj_get = #{objGet,jdbcType=INTEGER},
+      </if>
+      <if test="objAll != null" >
+        obj_all = #{objAll,jdbcType=INTEGER},
+      </if>
+      <if test="subjGet != null" >
+        subj_get = #{subjGet,jdbcType=INTEGER},
+      </if>
+      <if test="subjAll != null" >
+        subj_all = #{subjAll,jdbcType=INTEGER},
+      </if>
+      <if test="scoreGet != null" >
+        score_get = #{scoreGet,jdbcType=INTEGER},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="reserve1 != null" >
+        reserve1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        reserve2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where paper_scan_id = #{paperScanId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.oms.entity.PaperScan" >
+    update paper_scan
+    set student_id = #{studentId,jdbcType=INTEGER},
+      answer_id = #{answerId,jdbcType=INTEGER},
+      paper_name = #{paperName,jdbcType=VARCHAR},
+      student_exam_num = #{studentExamNum,jdbcType=INTEGER},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      address_prefix = #{addressPrefix,jdbcType=VARCHAR},
+      is_assign = #{isAssign,jdbcType=TINYINT},
+      is_mark = #{isMark,jdbcType=TINYINT},
+      obj_get = #{objGet,jdbcType=INTEGER},
+      obj_all = #{objAll,jdbcType=INTEGER},
+      subj_get = #{subjGet,jdbcType=INTEGER},
+      subj_all = #{subjAll,jdbcType=INTEGER},
+      score_get = #{scoreGet,jdbcType=INTEGER},
+      score = #{score,jdbcType=INTEGER},
+      reserve1 = #{reserve1,jdbcType=VARCHAR},
+      reserve2 = #{reserve2,jdbcType=VARCHAR}
+    where paper_scan_id = #{paperScanId,jdbcType=INTEGER}
+  </update>
+</mapper>
